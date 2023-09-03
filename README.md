@@ -56,12 +56,12 @@ DB_USERNAME=root
 DB_PASSWORD=
 </code>
 ### step 3
-<code>php artisan migrate</code>
-<code>php artisan passport:install</code>
-<code>php artisan key:generate</code>
-<code>php artisan storage:link</code>
-<code>php artisan db:seed</code>
-<code>composer dump-autoload</code>
+<code>php artisan migrate
+php artisan passport:install
+php artisan key:generate
+php artisan storage:link
+php artisan db:seed
+composer dump-autoload</code>
 
 ### step 4
 <code>php artisan serve</code>
