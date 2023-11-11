@@ -35,7 +35,7 @@
                 </li>
                 @endcan
 
-                @can('list_router')
+                {{-- @can('list_router')
                     <li class="nav-item">
                         <a
                             href="{{route('admin.routers.index')}}"
@@ -43,25 +43,25 @@
                             class="nav-link {{request()->routeIs('admin.routers.*') ? 'active' : ''}}">Routers
                         </a>
                     </li>
-                @endcan
+                @endcan --}}
 
-                @can('list_general_setting')
+                {{-- @can('list_general_setting')
                     <li class="nav-item">
                         <a
                             href="{{route('admin.general-settings.index')}}"
                             data-href="{{route('admin.general-settings.index')}}"
                             class="nav-link {{request()->routeIs('admin.general-settings.*') ? 'active' : ''}}">General Settings</a>
                     </li>
-                @endcan
+                @endcan --}}
 
-                @can('list_app_setting')
+                {{-- @can('list_app_setting')
                     <li class="nav-item">
                         <a
                             href="{{route('admin.app-settings.index')}}"
                             data-href="{{route('admin.app-settings.index')}}"
                            class="nav-link {{request()->routeIs('admin.app-settings.*') ? 'active' : ''}}">App Settings</a>
                     </li>
-                @endcan
+                @endcan --}}
 
                 @can('list_notification')
                     <li class="nav-item">
