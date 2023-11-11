@@ -29,13 +29,13 @@
                     </li>
                 @endcan
 
-                @can('list_logout_request')
+                {{-- @can('list_logout_request')
                     <li class="nav-item">
                         <a href="{{route('admin.logout-requests.index')}}"
                            data-href="{{route('admin.logout-requests.index')}}"
                            class="nav-link {{request()->routeIs('admin.logout-requests.*') ? 'active' : ''}}">Logout Requests</a>
                     </li>
-                @endcan
+                @endcan --}}
             </ul>
         </div>
     </li>

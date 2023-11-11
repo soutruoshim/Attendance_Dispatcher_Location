@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Helpers\AppHelper;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class DashboardRepository
@@ -18,10 +19,15 @@ class DashboardRepository
             ->where('is_active', 1)
             ->groupBy('company_id');
 
+        $totalBranchs = DB::table('branches')
+            ->select('company_id', DB::raw('COUNT(id) as total_branchs'))
+            ->where('is_active', 1)
+            ->groupBy('company_id');
+
         $totalDepartments = DB::table('departments')
             ->select('company_id', DB::raw('COUNT(id) as total_departments'))
             ->where('is_active', 1)
-            ->groupBy('company_id');
+            ->groupBy('company_id');    
 
         $totalCheckedInEmployee = DB::table('attendances')
             ->select('company_id', DB::raw('COUNT(id) as total_checked_in_employee'))
@@ -69,12 +75,16 @@ class DashboardRepository
         $totalHolidaysInYear = DB::table('holidays')
             ->select('company_id', DB::raw('count(id) as total_holidays'))
             ->where('is_active', '1');
-        if (isset($date['start_date'])) {
-            $totalHolidaysInYear->whereBetween('event_date', [$date['start_date'], $date['end_date']]);
-        } else {
-            $totalHolidaysInYear->whereYear('event_date', $date['year']);
-        }
+        $totalHolidaysInYear->whereMonth('event_date', Carbon::today()->month);
+        // if (isset($date['start_date'])) {
+        //     $totalHolidaysInYear->whereBetween('event_date', [$date['start_date'], $date['end_date']]);
+        // } else {
+        //     $totalHolidaysInYear->whereYear('event_date', $date['year']);
+        // }
         $totalHolidaysInYear->groupBy('company_id');
+
+        
+
 
 
         $projects = DB::table('projects')
@@ -95,6 +105,7 @@ class DashboardRepository
             'paid_leaves.total_paid_leaves',
             'pending_leave_requests.total_pending_leave_requests',
             'departments.total_departments',
+            'branchs.total_branchs',
 //            'urgent_leave_requests.total_urgent_leave_request',
             'projects.total_projects'
         )
@@ -104,6 +115,9 @@ class DashboardRepository
 
             ->leftJoinSub($totalDepartments, 'departments', function ($join) {
                 $join->on('companies.id', '=', 'departments.company_id');
+            })
+            ->leftJoinSub($totalBranchs, 'branchs', function ($join) {
+                $join->on('companies.id', '=', 'branchs.company_id');
             })
             ->leftJoinSub($totalCheckedInEmployee, 'checked_in_employee', function ($join) {
                 $join->on('companies.id', '=', 'checked_in_employee.company_id');
@@ -132,6 +146,20 @@ class DashboardRepository
             ->where('companies.is_active', 1)
             ->where('companies.id', $companyId)
             ->first();
+
+    }
+
+    public function getHolidayThisMonth($companyId)
+    {
+        //DB::enableQueryLog();
+        $totalHolidaysInMonth = DB::table('holidays')
+        ->select('id', 'event', 'event_date')
+        ->whereMonth('event_date', Carbon::today()->month)
+        ->where('is_active', '1')
+        ->get();
+        //dd(DB::getQueryLog());
+
+        return $totalHolidaysInMonth;
 
     }
 

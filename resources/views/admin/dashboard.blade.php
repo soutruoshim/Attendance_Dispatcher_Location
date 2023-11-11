@@ -62,7 +62,7 @@
             <div class="col-xxl-9 col-xl-8 d-flex">
                 <div class="row">
                     <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 mb-4 d-flex">
-                        <div class="card w-100">
+                        <a class="card w-100" href="{{url('admin/users')}}">
                             <div class="card-body text-md-start text-center">
                                 <div class="d-md-flex justify-content-between align-items-baseline mb-3">
                                     <h6 class="card-title">Total Employees</h6>
@@ -77,11 +77,29 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
 
                     <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 mb-4 d-flex">
-                        <div class="card w-100">
+                        <a class="card w-100" href="{{url('admin/branch')}}">
+                            <div class="card-body text-md-start text-center">
+                                <div class="d-md-flex justify-content-between align-items-baseline mb-3">
+                                    <h6 class="card-title">Total Branchs</h6>
+                                </div>
+                                <div class="row align-items-center d-md-flex">
+                                    <div class="col-lg-6 col-md-6">
+                                        <h3>{{number_format($dashboardDetail?->total_branchs)}}</h3>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 text-md-end dash-icon mt-md-0 mt-2">
+                                        <i class="link-icon" data-feather="layers"> </i>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 mb-4 d-flex">
+                        <a class="card w-100" href="{{url('admin/departments')}}">
                             <div class="card-body text-md-start text-center">
                                 <div class="d-md-flex justify-content-between align-items-baseline mb-3">
                                     <h6 class="card-title">Total Departments</h6>
@@ -95,47 +113,35 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
 
                     <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 mb-4 d-flex">
-                        <div class="card w-100">
+                        <a class="card w-100" href="{{url('admin/holidays')}}">
                             <div class="card-body text-md-start text-center">
                                 <div class="d-md-flex justify-content-between align-items-baseline mb-3">
-                                    <h6 class="card-title">Total Holidays</h6>
+                                    <h6 class="card-title">Holiday</h6>
                                 </div>
                                 <div class="row align-items-center d-md-flex">
                                     <div class="col-lg-6 col-md-6">
                                         <h3>{{number_format($dashboardDetail?->total_holidays) ?? 0}}</h3>
+                                        @foreach($dashboardHolidayThisMonth as $key => $Holiday)
+                                         <span> {{ucfirst($Holiday->event)}} <span>
+                                        
+                                        @endforeach
                                     </div>
                                     <div class="col-lg-6 col-md-6 text-md-end dash-icon mt-md-0 mt-2">
                                         <i class="link-icon" data-feather="umbrella"> </i>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
 
-                    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 mb-4 d-flex">
-                        <div class="card w-100">
-                            <div class="card-body text-md-start text-center">
-                                <div class="d-md-flex justify-content-between align-items-baseline mb-3">
-                                    <h6 class="card-title">Paid Leaves</h6>
-                                </div>
-                                <div class="row align-items-center d-md-flex">
-                                    <div class="col-lg-6 col-md-6">
-                                        <h3>{{number_format($dashboardDetail?->total_paid_leaves) ?? 0}}</h3>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 text-md-end dash-icon mt-md-0 mt-2">
-                                        <i class="link-icon" data-feather="file-text"> </i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                 
 
                     <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 mb-4 d-flex">
-                        <div class="card w-100">
+                        <a class="card w-100" href="{{url('admin/employees/leave-request')}}">
                             <div class="card-body text-md-start text-center">
                                 <div class="d-md-flex justify-content-between align-items-baseline mb-3">
                                     <h6 class="card-title">On Leave Today</h6>
@@ -149,11 +155,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
 
                     <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 mb-4 d-flex">
-                        <div class="card w-100">
+                        <a class="card w-100" href="{{url('admin/employees/leave-request')}}">
                             <div class="card-body text-md-start text-center">
                                 <div class="d-md-flex justify-content-between align-items-baseline mb-3">
                                     <h6 class="card-title">Pending Leave Requests</h6>
@@ -168,11 +174,11 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
 
                     <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 mb-4 d-flex">
-                        <div class="card w-100">
+                        <a class="card w-100" href="{{url('admin/attendances')}}">
                             <div class="card-body text-md-start text-center">
                                 <div class="d-md-flex justify-content-between align-items-baseline mb-3">
                                     <h6 class="card-title">Total Check In Today</h6>
@@ -186,11 +192,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
 
                     <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 mb-4 d-flex">
-                        <div class="card w-100">
+                        <a class="card w-100" href="{{url('admin/attendances')}}">
                             <div class="card-body text-md-start text-center">
                                 <div class="d-md-flex justify-content-between align-items-baseline mb-3">
                                     <h6 class="card-title">Total Check Out Today</h6>
@@ -204,7 +210,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
 
                 </div>
@@ -222,25 +228,7 @@
 
                             <p id="date" class="text-primary fw-bolder mb-3"></p>
 
-                            <div class="punch-btn mb-2 d-flex align-items-center justify-content-around">
-                                <button href="{{route('admin.dashboard.takeAttendance','checkIn')}}"
-                                        class="btn btn-lg btn-success  {{ $checkInAt ? 'd-none' : ''}}"
-                                        id="startWorkingBtn" data-audio="{{asset('assets/audio/beep.mp3')}}"
-                                >
-                                    Punch In
-                                </button>
-                                <button href="{{route('admin.dashboard.takeAttendance','checkOut')}}"
-                                        class="btn btn-lg btn-danger {{ $checkOutAt ? 'd-none' : ''}}"
-                                        id="stopWorkingBtn" data-audio="{{asset('assets/audio/beep.mp3')}}"
-                                >
-                                    Punch Out
-                                </button>
-                            </div>
-
-                            <div class="check-text d-flex align-items-center justify-content-around">
-                                <span >Check In At<p class="text-success fw-bold h5" id="checkInTime">{{$viewCheckIn}} </p></span>
-                                <span >Check Out At<p class="text-danger fw-bold h5" id="checkOutTime">{{$viewCheckOut}}  </p></span>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

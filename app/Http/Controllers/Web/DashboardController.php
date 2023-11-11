@@ -32,6 +32,7 @@ class DashboardController extends Controller
 
     public function index(Request $request)
     {
+        
         try {
             $projectSelect = ['id','name','start_date','deadline','status','priority'];
             $withProject = [
@@ -44,14 +45,17 @@ class DashboardController extends Controller
                 throw new Exception('Company Detail Not Found');
             }
             $date = AppHelper::yearDetailToFilterData();
+            //dd($date);
             $dashboardDetail = $this->dashboardRepo->getCompanyDashboardDetail($companyId, $date);
+            $dashboardHolidayThisMonth = $this->dashboardRepo->getHolidayThisMonth($companyId);
             $topClients = $this->clientService->getTopClientsOfCompany();
             $taskPieChartData = $this->taskService->getTaskDataForPieChart();
             $projectCardDetail = $this->projectService->getProjectCardData();
             $recentProjects = $this->projectService->getRecentProjectListsForDashboard($projectSelect,$withProject);
-
+            //dd($dashboardTotalHolidayThisMonth);
             return view('admin.dashboard', compact(
                 'dashboardDetail',
+                'dashboardHolidayThisMonth',
                 'topClients',
                 'taskPieChartData',
                 'projectCardDetail',
