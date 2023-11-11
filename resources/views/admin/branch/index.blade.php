@@ -206,7 +206,8 @@
                     $('#address').val('');
                     $('#company_id').val(data.company.id);
                     $('#phone').val('');
-                    $('#status').val('');
+                    $('#status').val('1');
+                    $('#branch_status').hide();
                     $('#branch_location_latitude').val('');
                     $('#branch_location_longitude').val('');
                     $('#update').val('post');

@@ -47,7 +47,7 @@
                         </div>
 
 
-                        <div class="col-lg-6 mb-3">
+                        <div class="col-lg-6 mb-3" id="branch_status">
                             <label for="exampleFormControlSelect1" class="form-label">Status</label>
                             <select class="form-select" id="status" name="is_active">
                                 <option value=""  disabled>Select status</option>

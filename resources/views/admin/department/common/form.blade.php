@@ -48,11 +48,11 @@
         <input type="number" class="form-control" id="phone" required name="phone" value="{{ isset($departmentsDetail)? $departmentsDetail->phone: old('phone') }}" autocomplete="off" placeholder="">
     </div>
 
-    <div class="col-lg-6 mb-3">
+    <div class="col-lg-6 mb-3" {{!isset($departmentsDetail) ? 'hidden': ''}} >
         <label for="exampleFormControlSelect1" class="form-label">Status</label>
         <select class="form-select" id="exampleFormControlSelect1" name="is_active">
             <option value="" {{!isset($departmentsDetail) ? 'selected': ''}} disabled>Select status</option>
-            <option value="1" {{ isset($departmentsDetail) && ($departmentsDetail->is_active ) == 1 ? 'selected': old('is_active') }}>Active</option>
+            <option value="1" {{!isset($departmentsDetail) ? 'selected': ''}} {{ isset($departmentsDetail) && ($departmentsDetail->is_active ) == 1 ? 'selected': old('is_active') }} >Active</option>
             <option value="0" {{ isset($departmentsDetail) && ($departmentsDetail->is_active ) == 0 ? 'selected': old('is_active') }}>Inactive</option>
         </select>
     </div>

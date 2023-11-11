@@ -227,11 +227,11 @@
                     </select>
                 </div>
 
-                <div class="col-lg-6 mb-3">
+                <div class="col-lg-6 mb-3" {{!isset($userDetail) ? 'hidden': ''}}>
                     <label for="is_active" class="form-label">User Status <span style="color: red">*</span></label>
                     <select class="form-select" id="is_active" name="is_active" required>
                         <option value="" {{isset($userDetail) || !is_null(old('is_active')) ? '': 'selected'}}  >select status </option>
-                        <option value="1" {{ isset($userDetail) && ($userDetail->is_active) == 1 || !is_null(old('is_active')) && old('is_active') == 1 ? 'selected':'' }}>Active</option>
+                        <option value="1" {{isset($userDetail) || !is_null(old('is_active')) ? '': 'selected'}} {{ isset($userDetail) && ($userDetail->is_active) == 1 || !is_null(old('is_active')) && old('is_active') == 1 ? 'selected':'' }}>Active</option>
                         <option value="0" {{ isset($userDetail) && ($userDetail->is_active) == 0 || !is_null(old('is_active')) && old('is_active') == 0 ? 'selected': '' }}>Inactive</option>
                     </select>
                 </div>

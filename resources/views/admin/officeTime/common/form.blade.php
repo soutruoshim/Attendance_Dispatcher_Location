@@ -39,11 +39,11 @@
         </select>
     </div>
 
-    <div class="col-lg-4 mb-3">
+    <div class="col-lg-4 mb-3" {{!isset($officeTime) ? 'hidden': ''}}>
         <label for="exampleFormControlSelect1" class="form-label">Status</label>
         <select class="form-select" id="exampleFormControlSelect1" name="is_active">
             <option value="" {{isset($officeTime) ? '': 'selected'}} disabled>Select status</option>
-            <option value="1" @selected( old('is_active', isset($officeTime) && $officeTime->is_active ) === 1)>Active</option>
+            <option value="1" {{isset($officeTime) ? '': 'selected'}} @selected( old('is_active', isset($officeTime) && $officeTime->is_active ) === 1)>Active</option>
             <option value="0" @selected( old('is_active', isset($officeTime) && $officeTime->is_active ) === 0)>Inactive</option>
         </select>
     </div>

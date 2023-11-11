@@ -24,11 +24,11 @@
         </select>
     </div>
 
-    <div class="col-lg-6 mb-3">
+    <div class="col-lg-6 mb-3" {{!isset($companyContentDetail) ? 'hidden': ''}}>
         <label for="exampleFormControlSelect1" class="form-label">Status <span style="color: red">*</span></label>
         <select class="form-select" id="exampleFormControlSelect1" name="is_active" required>
             <option value="" {{isset($companyContentDetail) ? '':'selected'}} >Select status</option>
-            <option value="1" {{ isset($companyContentDetail) && ($companyContentDetail->is_active ) == 1 ? 'selected': old('is_active') }}>Active</option>
+            <option value="1" {{isset($companyContentDetail) ? '':'selected'}} {{ isset($companyContentDetail) && ($companyContentDetail->is_active ) == 1 ? 'selected': old('is_active') }}>Active</option>
             <option value="0" {{ isset($companyContentDetail) && ($companyContentDetail->is_active ) == 0 ? 'selected': old('is_active') }}>Inactive</option>
         </select>
     </div>

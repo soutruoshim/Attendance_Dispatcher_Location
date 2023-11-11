@@ -32,11 +32,11 @@
         <input class="mt-3" type="checkbox" id="checkbox" > All Employees
     </div>
 
-    <div class="col-lg-6 mb-3">
+    <div class="col-lg-6 mb-3"  {{!isset($noticeDetail) ? 'hidden': ''}}>
         <label for="is_active" class="form-label">Status <span style="color: red">*</span></label>
         <select class="form-select" id="is_active" name="is_active" required>
             <option value="" {{isset($noticeDetail) || old('is_active') ? '':'selected'}} >Select status</option>
-            <option value="1" {{ isset($noticeDetail) && ($noticeDetail->is_active  || old('is_active') )== 1 ? 'selected': '' }}>Active</option>
+            <option value="1" {{isset($noticeDetail) || old('is_active') ? '':'selected'}} {{ isset($noticeDetail) && ($noticeDetail->is_active  || old('is_active') )== 1 ? 'selected': '' }}>Active</option>
             <option value="0" {{ isset($noticeDetail) && ($noticeDetail->is_active || old('is_active') ) == 0 ? 'selected': '' }}>Inactive</option>
         </select>
     </div>
