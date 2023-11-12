@@ -72,6 +72,11 @@ class Branch extends Model
         return $this->hasMany(Department::class,'branch_id','id');
     }
 
+    public function position(): HasMany
+    {
+        return $this->hasMany(Post::class,'branch_id','id');
+    }
+
     public function routers(): HasMany
     {
         return $this->hasMany(Router::class,'branch_id','id');

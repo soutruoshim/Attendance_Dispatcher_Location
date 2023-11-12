@@ -9,14 +9,14 @@
         <nav class="page-breadcrumb d-flex align-items-center justify-content-between">
             <ol class="breadcrumb mb-0">
                 <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-                <li class="breadcrumb-item"><a href="{{route('admin.posts.index')}}">Post section</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Posts</li>
+                <li class="breadcrumb-item"><a href="{{route('admin.posts.index')}}">Position section</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Positions</li>
             </ol>
 
             @can('create_post')
                 <a href="{{ route('admin.posts.create')}}">
                     <button class="btn btn-primary add_department">
-                        <i class="link-icon" data-feather="plus"></i>Add Post
+                        <i class="link-icon" data-feather="plus"></i>Add Position
                     </button>
                 </a>
             @endcan
@@ -26,11 +26,11 @@
             <form class="forms-sample" action="{{route('admin.posts.index')}}" method="get">
                 <div class="row align-items-center">
 
-                    <div class="col-lg-2 mb-3">
-                        <h5>Posts Lists</h5>
+                    <div class="col-lg-1 mb-3">
+                        <h5>List</h5>
                     </div>
 
-                    <div class="col-lg-4 col-md-4 mb-3">
+                    {{-- <div class="col-lg-4 col-md-4 mb-3">
                         <select class="form-select form-select-lg" name="department">
                             <option value="" {{!isset($filterParameters['department']) ? 'selected': ''}}>Search by department</option>
                             @foreach($departments as $key => $value)
@@ -38,13 +38,32 @@
                                     {{ucfirst($value)}} </option>
                             @endforeach
                         </select>
+                    </div> --}}
+                    <div class="col-lg-3 mb-3">
+                        <select class="form-select" id="branch" name="branch_id" >
+                            <option value="" {{!isset($userDetail) || old('branch_id') ? 'selected': ''}}  disabled >Select Branch</option>
+                            @if(isset($companyDetail))
+                                @foreach($companyDetail->branches()->get() as $key => $branch)
+                                    <option value="{{$branch->id}}"
+                                        {{ isset($userDetail) && ($userDetail->branch_id ) == $branch->id || old('branch_id') == $branch->id ? 'selected': '' }}>
+                                        {{ucfirst($branch->name)}}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                    </div>
+                
+                    <div class="col-lg-3 mb-3">
+                       
+                        <select class="form-select" id="department" name="department">
+                            <option value="" {{!isset($filterParameters['department']) ? 'selected': ''}}>Search by department</option>
+                        </select>
                     </div>
 
-                    <div class="col-lg-4 col-md-4 mb-3">
+                    <div class="col-lg-3 col-md-3 mb-3">
                         <input type="text" placeholder="Search by Post name" name="name" value="{{$filterParameters['name']}}" class="form-control">
                     </div>
 
-                    <div class="col-lg-2 col-md-4 d-flex">
+                    <div class="col-lg-2 col-md-3 d-flex">
                         <button type="submit" class="btn btn-block btn-secondary form-control me-md-2 me-0 mb-3">Filter</button>
 
                         <a class="btn btn-block btn-primary me-md-2 me-0 mb-3 " href="{{route('admin.posts.index')}}">Reset</a>
@@ -60,8 +79,9 @@
                         <thead>
                         <tr>
                             <th>#</th>
-                            <th>Post Name</th>
+                            <th>Position Name</th>
                             <th>Department </th>
+                            <th>Branch </th>
                             <th class="text-center">Total Employee</th>
                             <th class="text-center">Status</th>
 
@@ -78,6 +98,7 @@
                                 <td>{{++$key}}</td>
                                 <td>{{ucfirst($value->post_name)}}</td>
                                 <td>{{ucfirst($value->department->dept_name)}}</td>
+                                <td>{{ucfirst($value->branch->name)}}</td>
                                 <td class="text-center">
                                    <p class="btn btn-info btn-sm" id="showEmployee" data-employee="{{($value->employees)}}">
                                        {{($value->employees_count)}}

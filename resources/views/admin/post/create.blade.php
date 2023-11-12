@@ -36,3 +36,7 @@
 
     </section>
 @endsection
+@section('scripts')
+   @include('admin.post.common.scripts')
+@endsection
+

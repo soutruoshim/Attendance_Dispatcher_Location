@@ -49,7 +49,7 @@
                 <li class="nav-item">
                     <a href="{{route('admin.posts.index')}}"
                        data-href="{{route('admin.posts.index')}}"
-                       class="nav-link {{request()->routeIs('admin.posts.*') ? 'active' : ''}}">Post</a>
+                       class="nav-link {{request()->routeIs('admin.posts.*') ? 'active' : ''}}">Position</a>
                 </li>
             @endcan
             </ul>

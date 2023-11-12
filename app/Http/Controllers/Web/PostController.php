@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Helpers\AppHelper;
 use App\Http\Controllers\Controller;
 use App\Repositories\BranchRepository;
+use App\Repositories\CompanyRepository;
 use App\Repositories\DepartmentRepository;
 use App\Repositories\PostRepository;
 use App\Requests\Post\PostRequest;
@@ -20,10 +21,12 @@ class PostController extends Controller
 
     private PostRepository $postRepo;
     private DepartmentRepository $departmentRepo;
+    private CompanyRepository $companyRepo;
 
-    public function __construct(PostRepository $postRepo, DepartmentRepository $departmentRepo)
+    public function __construct(PostRepository $postRepo, DepartmentRepository $departmentRepo, CompanyRepository $companyRepo,)
     {
         $this->postRepo = $postRepo;
+        $this->companyRepo = $companyRepo;
         $this->departmentRepo = $departmentRepo;
     }
 
@@ -34,14 +37,22 @@ class PostController extends Controller
         try {
             $filterParameters = [
                 'name' =>  $request->name ?? null,
-                'department' => $request->department ?? null
+                'department' => $request->department ?? null,
+                'branch' => $request->branch_id ?? null
             ];
             $postSelect = ['*'];
             $with = ['department:id,dept_name','employees:id,name,post_id,avatar'];
             $departments = $this->departmentRepo->pluckAllDepartments();
+
+            $select_branch = ['id','name'];
+            $with_branch = ['branches:id,name'];
+            $companyDetail = $this->companyRepo->getCompanyDetail($select_branch,$with_branch);
+
             $posts = $this->postRepo->getAllDepartmentPosts($filterParameters,$with,$postSelect);
+           // dd($posts);
             return view($this->view . 'index', compact('posts',
                 'filterParameters',
+                'companyDetail',
                 'departments'));
         } catch (\Exception $exception) {
             return redirect()->back()->with('danger', $exception->getMessage());
@@ -54,8 +65,12 @@ class PostController extends Controller
         try {
             $with = [];
             $select = ['id', 'dept_name'];
+            $select_branch = ['id','name'];
+            $with_branch = ['branches:id,name'];
             $departmentDetail = $this->departmentRepo->getAllActiveDepartments($with, $select);
-            return view($this->view . 'create', compact('departmentDetail'));
+            $companyDetail = $this->companyRepo->getCompanyDetail($select_branch,$with_branch);
+            
+            return view($this->view . 'create', compact('departmentDetail','companyDetail'));
         } catch (\Exception $exception) {
             return redirect()->back()->with('danger', $exception->getMessage());
         }
@@ -79,7 +94,9 @@ class PostController extends Controller
     {
         $this->authorize('create_post');
         try {
+          
             $validatedData = $request->validated();
+            //dd($validatedData);
             DB::beginTransaction();
             $this->postRepo->store($validatedData);
             DB::commit();
@@ -100,8 +117,12 @@ class PostController extends Controller
             $with = [];
             $select = ['id', 'dept_name'];
             $departmentDetail = $this->departmentRepo->getAllActiveDepartments($with, $select);
+            $select_branch = ['id','name'];
+            $with_branch = ['branches:id,name'];
+            $companyDetail = $this->companyRepo->getCompanyDetail($select_branch,$with_branch);
+
             return view($this->view.'edit',
-                compact('postDetail','departmentDetail')
+                compact('postDetail','departmentDetail','companyDetail')
             );
         }catch(\Exception $exception){
             return redirect()->back()->with('danger', $exception->getMessage());

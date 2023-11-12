@@ -21,6 +21,11 @@ class PostRepository
                     $subQuery->where('id', $filterParameters['department']);
                 });
             })
+            ->when(isset($filterParameters['branch']), function ($query) use ($filterParameters) {
+                $query->whereHas('branch',function($subQuery) use ($filterParameters){
+                    $subQuery->where('id', $filterParameters['branch']);
+                });
+            })
             ->latest()
             ->paginate(Post::RECORDS_PER_PAGE);
     }

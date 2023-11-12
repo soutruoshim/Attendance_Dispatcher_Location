@@ -27,6 +27,7 @@ class PostRequest extends FormRequest
         return [
             'post_name' => 'required|string|max:50',
             'dept_id' => 'required|exists:departments,id',
+            'branch_id' => 'required',
             'is_active' => ['nullable', 'boolean', Rule::in([1, 0])],
         ];
     }

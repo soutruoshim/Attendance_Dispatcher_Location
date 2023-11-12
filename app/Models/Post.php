@@ -14,7 +14,8 @@ class Post extends Model
     protected $fillable = [
         'post_name',
         'is_active',
-        'dept_id'
+        'dept_id',
+        'branch_id'
     ];
 
     const RECORDS_PER_PAGE = 10;
@@ -25,6 +26,10 @@ class Post extends Model
     public function department(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(Department::class, 'dept_id', 'id');
+    }
+    public function branch(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Branch::class, 'branch_id', 'id');
     }
 
     public function employees(): \Illuminate\Database\Eloquent\Relations\HasMany
