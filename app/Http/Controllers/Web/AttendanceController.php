@@ -174,14 +174,32 @@ class AttendanceController extends Controller
             $months = AppHelper::MONTHS;
             $userDetail = $this->userRepository->findUserDetailById($employeeId,['id','name']);
             $attendanceDetail = $this->attendanceService->getEmployeeAttendanceDetailOfTheMonth($filterParameter);
+            // if($filterParameter['download_excel']){
+            //     if($filterParameter['date_in_bs']){
+            //         $month = \App\Helpers\AppHelper::MONTHS[date("n", strtotime($attendanceDetail[0]['attendance_date']))]['np'];
+            //     }else{
+            //         $month = date("F", strtotime($attendanceDetail[0]['attendance_date']));
+            //     }
+
+            //     return \Maatwebsite\Excel\Facades\Excel::download(new AttendanceExport($attendanceDetail,$userDetail),'attendance-'.$userDetail->name.'-'.$filterParameter['year'].'-'. $month.'-report.xlsx');
+            // }
             if($filterParameter['download_excel']){
                 if($filterParameter['date_in_bs']){
                     $month = \App\Helpers\AppHelper::MONTHS[date("n", strtotime($attendanceDetail[0]['attendance_date']))]['np'];
                 }else{
                     $month = date("F", strtotime($attendanceDetail[0]['attendance_date']));
                 }
-                return \Maatwebsite\Excel\Facades\Excel::download(new AttendanceExport($attendanceDetail,$userDetail),'attendance-'.$userDetail->name.'-'.$filterParameter['year'].'-'. $month.'-report.xlsx');
+                $data = [
+                        'title' => 'EMPLOYEE ATENDANCE',
+                        'date' => date('d/m/Y'),
+                        'attendanceDetail' => $attendanceDetail,
+                        'userDetail' => $userDetail,
+                        'month' => $month,
+                        'year' => $filterParameter['year']
+                       ];
+                return view($this->view . 'export_one', $data);
             }
+
             return view($this->view.'show',compact('attendanceDetail',
                 'filterParameter',
                 'months',

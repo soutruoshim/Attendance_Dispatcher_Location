@@ -63,10 +63,16 @@
                     </div>
 
                     @can('attendance_csv_export')
-                        <div class="col-lg-2 col-md-3">
+                        {{-- <div class="col-lg-2 col-md-3">
                             <button type="button" id="download-excel" data-href="{{route('admin.attendances.show',$userDetail->id )}}"
                                     class="btn btn-block btn-secondary form-control">
                                 CSV Export
+                            </button>
+                        </div> --}}
+                        <div class="col-lg-2 col-md-3">
+                            <button type="button" id="download-excel" data-href="{{route('admin.attendances.show',$userDetail->id )}}"
+                                    class="btn btn-block btn-secondary form-control">
+                                Export
                             </button>
                         </div>
                     @endcan

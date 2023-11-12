@@ -35,9 +35,10 @@
                 <img src="https://hr-dispatch.online/uploads/company/logo/Thumb-65503308645ec_logo.png" style="object-fit: cover" width="120" height="120" alt="">
                 
               </div>
-            <div class="col col-md-auto align-self-start">
-                <h4 style="text-align: end">KINGDOM OF CAMBODIA</h4>
-                <h3 style="text-align: end">Nation - Religion - King</h3>
+            <div class="col col-md-auto">
+                <h4 style="text-align: center">KINGDOM OF CAMBODIA</h4>
+                <h3 style="text-align: center">Nation - Religion - King</h3>
+                <p style="text-align: center"><img height="15" src="{{asset('assets/images/bar_v.png') }}" alt=""></p>
             </div>
         </div>
         <br>
