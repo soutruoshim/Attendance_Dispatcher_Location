@@ -52,11 +52,17 @@
                         <button type="submit" class="btn btn-block btn-success form-control me-md-2 me-0 mb-3">Filter</button>
 
                         @can('attendance_csv_export')
-                            <button type="button" id="download-daywise-attendance-excel"
+                            {{-- <button type="button" id="download-daywise-attendance-excel"
                                     data-href="{{route('admin.attendances.index' )}}"
                                     class="btn btn-block btn-secondary form-control me-md-2 me-0 mb-3">CSV Export
+                            </button> --}}
+
+                            <button type="button" id="download-daywise-attendance-excel"
+                                    data-href="{{route('admin.attendances.index' )}}"
+                                    class="btn btn-block btn-secondary form-control me-md-2 me-0 mb-3">Export
                             </button>
-                            
+
+
                         @endcan
 
                         <a class="btn btn-block btn-primary me-md-2 me-0 mb-3 " href="{{route('admin.attendances.index')}}">Reset</a>

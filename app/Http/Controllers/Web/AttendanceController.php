@@ -14,6 +14,7 @@ use App\Repositories\RouterRepository;
 use App\Repositories\UserRepository;
 use App\Requests\Attendance\AttendanceTimeEditRequest;
 use App\Services\Attendance\AttendanceService;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\RedirectResponse;
@@ -66,9 +67,27 @@ class AttendanceController extends Controller
             }
             $attendanceDetail = $this->attendanceService->getAllCompanyEmployeeAttendanceDetailOfTheDay($filterParameter);
             $branch = $this->branchRepo->getLoggedInUserCompanyBranches($companyId,$selectBranch);
+            
+            // if($filterParameter['download_excel']){
+            //     return \Maatwebsite\Excel\Facades\Excel::download( new AttendanceDayWiseExport($attendanceDetail,$filterParameter),'attendance-'.$filterParameter['attendance_date'].'-report.xlsx');
+            // }
+
             if($filterParameter['download_excel']){
-                return \Maatwebsite\Excel\Facades\Excel::download( new AttendanceDayWiseExport($attendanceDetail,$filterParameter),'attendance-'.$filterParameter['attendance_date'].'-report.xlsx');
+                $data = [
+                        'title' => 'EMPLOYEE ATENDANCE LIST',
+                        'date' => date('d/m/Y'),
+                        'users' => $attendanceDetail
+                       ];
+                //dd($data);
+                
+                // $pdf = Pdf::loadView($this->view.'export',$data)->setOptions(['defaultFont' => 'sans-serif']);
+                // $pdf->setBasePath(public_path());
+                // return $pdf->download('attendance-'.$filterParameter['attendance_date'].'-report.pdf');
+                return view($this->view . 'export', $data);
             }
+
+
+
             return view($this->view . 'index', compact('attendanceDetail', 'filterParameter','branch'));
         } catch (Exception $exception) {
             return redirect()->back()->with('danger', $exception->getMessage());
