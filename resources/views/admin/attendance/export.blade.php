@@ -47,16 +47,20 @@
                     <h4 style="text-align: center;">{{ $title }}</h4>
             </div>
             <div class="col-12 align-self-center">
-                <h5 style="text-align: center;">Attendance Date: {{ $date }}</h3>
+                <h5 style="text-align: center;">Attendance Date: <b>{{ $date }}</b></h3>
         </div>
         </div>
+        <br>
         <div class="row">
             <div class="col">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th scope="col">No</th>
+                            <th scope="col">Employee No</th>
                             <th scope="col">Employee Name</th>
+                            <th scope="col">On Duty</th>
+                            <th scope="col">Off Duty</th>
                             <th scope="col">Check-In</th>
                             <th scope="col">Check-Out</th>
                             <th scope="col">Status</th>
@@ -64,10 +68,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {{dd($users)}}
                         @foreach ($users as $key => $value)
                             <tr>
                                 <th scope="row">{{ ++$key }}</th>
-                                <td>{{ $value->user_name }}</td>
+                                <td>ACC0{{ $value->user_id }}</td>
+                                <td><b>{{ $value->user_name }}</b></td>
+                                <td>08:00 AM</td>
+                                <td>05:30 PM</td>
                                 <td>{{ $value->check_in_at }}</td>
                                 <td>{{ $value->check_out_at }}</td>
                                 <td>{{ $value->attendance_status }}</td>
@@ -81,7 +89,7 @@
         <div class="row justify-content-end">
             <div class="col col-md-auto align-self-end">
                 <p style="text-align: end">Phnom Penh City, Date:  {{ $date }}</p>
-                <p style="text-align: end">COO OF CENTRIC KERNEL co.ltd</p>
+                <p style="text-align: end;font-weight: bold;">COO OF CENTRIC KERNEL co.ltd</p>
             </div>
         </div>
     </div>

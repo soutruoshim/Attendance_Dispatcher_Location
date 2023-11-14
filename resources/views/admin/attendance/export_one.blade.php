@@ -44,19 +44,22 @@
         <br>
         <div class="row">
             <div class="col-12 align-self-center">
-                    <h4 style="text-align: center;">{{ $title }} of {{ucfirst($userDetail->name)}}</h4>
+                    <h4 style="text-align: center;">{{ $title }} of <b>{{ucfirst($userDetail->name)}}</b></h4>
             </div>
            
             <div class="col-12 align-self-center">
-                <h5 style="text-align: center;">Attendance Month: {{ $month }}/{{$year}}</h5>
+                <h5 style="text-align: center;">Attendance Month: <b>{{ $month }}/{{$year}}</b></h5>
         </div>
         </div>
+        <br>
         <div class="row">
             <div class="col">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th> Date </th>
+                            <th scope="col">On Duty</th>
+                            <th scope="col">Off Duty</th>
                             <th style="text-align: center;" >Check In At</th>
                             <th style="text-align: center;" >Check Out At</th>
                             <th style="text-align: center;">Worked Hour</th>
@@ -74,8 +77,9 @@
                         @forelse($attendanceDetail as $key => $value)
                                 <tr>
 
-                                    <td>{{\App\Helpers\AttendanceHelper::formattedAttendanceDate($value['attendance_date'])}} ({{ \App\Helpers\AppHelper::weekDay($value['attendance_date']) }})</td>
-
+                                    <td>{{ \App\Helpers\AppHelper::weekDay($value['attendance_date']) }}, {{\App\Helpers\AttendanceHelper::formattedAttendanceDate($value['attendance_date'])}}</td>
+                                    <td>08:00 AM</td>
+                                    <td>05:30 PM</td>
                                     @if(isset($value['check_in_at']))
 
                                         @if($value['check_in_at'])
@@ -87,6 +91,7 @@
                                         @else
                                             <td></td>
                                         @endif
+
 
                                         @if($value['check_out_at'])
                                             <td class="text-center">
@@ -168,7 +173,7 @@
         <div class="row justify-content-end">
             <div class="col col-md-auto align-self-end">
                 <p style="text-align: end">Phnom Penh City, Date:  {{ $date }}</p>
-                <p style="text-align: end">COO OF CENTRIC KERNEL co.ltd</p>
+                <p style="text-align: end; font-weight: bold;">COO OF CENTRIC KERNEL co.ltd</p>
             </div>
         </div>
     </div>
